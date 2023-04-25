@@ -4,19 +4,27 @@
 
 ## Usuage
 
+### Basic
+
 Just type abbrevations into the `*lam*` buffer for them to become instantly available. Abbrevs are reloaded when you switch window focus - no saving or extra commands required!
 ```
 ("eia" "Emacs is Awesome!")
 ("lam" "Local Abbrev Manager")
 ```
 
-But, wait. Abbrevs can do a lot more! Did you know that we can call arbitrary elisp from abbrevs?
+Since, the buffer is just Elisp, commenting out lines works as expected. Since the `*lam*` buffer is reloaded with no extra effort from your side: changing abbrev values, adding, removing, commenting, uncommenting all work seamlessly.
+
+### Elisp
+
+But, wait. Abbrevs can do a lot more. Did you know that we can call arbitrary elisp from abbrevs?
 
 If there is a third arg, it is wrapped into a lambda and called after expansion.
 ```
 ("sayhi" "" (message "Hi"))
 ```
 Will echo "Hi" to the minibuffer.
+
+Just think of the possibilities!!!
 
 If you don't remember/can't be bothered to lookup exact elisp functions, you can use the following approach to bind key sequences.
 
@@ -36,7 +44,7 @@ Instead of all this effort, you can do:
 ("Now" "" (execute-kbd-macro (read-kbd-macro "C-u C-u C-c .")))
 ```
 
-But, even this is too much, so we provide an easy to use macro:
+But, even this is too much, so we provide an easy to use macro that does exactly this:
 ```
 ("Now" "" (lam/kbd "C-u C-u C-c ."))
 ```
