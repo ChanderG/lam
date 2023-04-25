@@ -1,7 +1,9 @@
 ;; -*- lexical-binding:t -*-
 
-;; obtained from the "Buffer local abbrevs" section from https://www.emacswiki.org/emacs/AbbrevMode
-;; then modified to use a basetable so that it resets local abbrev everytime
+;; base code obtained from the "Buffer local abbrevs" section from https://www.emacswiki.org/emacs/AbbrevMode
+;; then modified to:
+;; 1. use a basetable so that it resets local abbrev everytime
+;; 2. Wrap the 3rd arg into a lambda function
 (defun set-local-abbrevs (abbrevs basetable)
   "Add ABBREVS to `local-abbrev-table' and make it buffer local.
     ABBREVS should be a list of abbrevs as passed to `define-abbrev-table'.
@@ -16,7 +18,7 @@
       (define-abbrev (eval tblsym)
         (cl-first abbrev)
         (cl-second abbrev)
-        (cl-third abbrev)))
+        `(lambda () ,(cl-third abbrev))))
     (setq-local local-abbrev-table (eval tblsym))))
 
 ; the fourth arg is not used - only for the hook function which is a window
@@ -39,5 +41,9 @@
       (add-hook 'window-selection-change-functions
 		(apply-partially #'lam/reload lambuffer sourcebuffer basetable) 0 t)
       )))
+
+;; Simple macro to make key bindings easier
+(defmacro lam/kbd (arg)
+  `(execute-kbd-macro (read-kbd-macro ,arg)))
 
 (provide 'lam)
