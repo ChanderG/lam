@@ -14,7 +14,7 @@ Just type abbrevations into the `*lam*` buffer for them to become instantly avai
 
 Since, the buffer is just Elisp, commenting out lines works as expected. Since the `*lam*` buffer is reloaded with no extra effort from your side: changing abbrev values, adding, removing, commenting, uncommenting all work seamlessly.
 
-### Elisp
+### Executing Elisp
 
 But, wait. Abbrevs can do a lot more. Did you know that we can call arbitrary elisp from abbrevs?
 
@@ -25,6 +25,8 @@ If there is a third arg, it is wrapped into a lambda and called after expansion.
 Will echo "Hi" to the minibuffer.
 
 Just think of the possibilities!!!
+
+#### Binding Key Sequences
 
 If you don't remember/can't be bothered to lookup exact elisp functions, you can use the following approach to bind key sequences.
 
@@ -47,4 +49,17 @@ Instead of all this effort, you can do:
 But, even this is too much, so we provide an easy to use macro that does exactly this:
 ```
 ("Now" "" (lam/kbd "C-u C-u C-c ."))
+```
+
+#### Using Clipboard data
+
+You can use external data directly from the elisp execution mode for custom abbrevations. Consider the following example:
+```
+("fn" "" (insert "\\footnote{" (substring-no-properties (x-get-clipboard)) "}"))
+```
+which inserts a footnote into a Latex file at point using whatever is in your clipboard - a url of the website for example that you just copied.
+
+To simplify this use case, we provide a convenience macro `lam/cb` that does just this:
+```
+("fn" "" (insert "\\footnote{" (lam/cb) "}"))
 ```

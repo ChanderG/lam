@@ -46,4 +46,8 @@
 (defmacro lam/kbd (arg)
   `(execute-kbd-macro (read-kbd-macro ,arg)))
 
+;; Get current clipboard contents
+(defmacro lam/cb ()
+  '(substring-no-properties (x-get-clipboard)))
+
 (provide 'lam)
