@@ -2,6 +2,15 @@
 
 ## Installation
 
+Not on melpa yet. For now:
+```
+$ git clone https://github.com/ChanderG/lam
+```
+and then in your init file:
+```
+(load "<path to lam>/lam")
+```
+
 ## Usuage
 
 ### Basic
