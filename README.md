@@ -63,3 +63,13 @@ To simplify this use case, we provide a convenience macro `lam/cb` that does jus
 ```
 ("fn" "" (insert "\\footnote{" (lam/cb) "}"))
 ```
+
+## Possible Features/TODOs
+
+1. Add a command to easily add abbrev for word under cursor.
+2. Command to directly add sexp at point into lam and delete it out: allowing seamless adding of entried from primary buffer.
+3. Highlight candidates for abbrev by word length and frequency
+4. Support multiple lam buffers.
+5. Save/load lam buffers.
+6. Use a single lam buffer for an entire project
+
