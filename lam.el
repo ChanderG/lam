@@ -31,16 +31,45 @@
 
 (defun lam/open ()
   (interactive)
+  (message "Setting up lam...")
   (abbrev-mode)
-  (let ((lambuffer (get-buffer-create "*lam*"))
+  (let* ((lambuffer (get-buffer-create "*lam*"))
         (sourcebuffer (current-buffer))
-	(basetable local-abbrev-table))
+	(basetable local-abbrev-table)
+        (func (apply-partially #'lam/reload lambuffer sourcebuffer basetable)))
     (display-buffer-in-side-window lambuffer nil)
     (with-current-buffer lambuffer
       ; to make the hook local to buffer
-      (add-hook 'window-selection-change-functions
-		(apply-partially #'lam/reload lambuffer sourcebuffer basetable) 0 t)
-      )))
+      (add-hook 'window-state-change-functions func 0 t)
+      ; TODO: add hook to clean out the lam-binding variable here on death of this buffer
+      )
+    ; save the function reload binding to buffer
+    (make-local-variable 'lam-binding)
+    (setq lam-binding func)
+    ))
+
+; TODO: remove hook function in *lam* buffer on death of the primary buffer
+
+(defun lam/control ()
+  "Single point of entry to conrol lam."
+  (interactive)
+  (if (equal (buffer-name) "*lam*")
+    ; if inside the lam window - close it
+    (progn
+      ; we assume that this is always a side window - otherwise it won't work
+      ; manually run the hooks to update lam - should happen automatically, but it is not...
+      (run-hook-with-args 'window-state-change-functions nil)
+      (window-toggle-side-windows))
+    ; called from a normal buffer
+    (progn
+      (if (boundp 'lam-binding)
+        ; already have opened connection to lam - so don't have to redo that
+        ; open the side window
+        (window-toggle-side-windows)
+        ; no connection to lam yet
+        (lam/open))
+      ; switch focus to the lam window
+      (other-window 1))))
 
 ;; Simple macro to make key bindings easier
 (defmacro lam/kbd (arg)

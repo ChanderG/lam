@@ -11,6 +11,11 @@ and then in your init file:
 (load "<path to lam>/lam")
 ```
 
+Bind it to a convenient key, for eg:
+```
+(global-set-key "\C-xl" 'lam/control)
+```
+
 ## Usuage
 
 ### Basic
