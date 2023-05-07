@@ -1,5 +1,11 @@
 # lam: Local Abbrev Manager
 
+Buffer local `abbrev`s at the speed of light!
+
+![lam in action](demo.gif)
+
+The aim is to lower the barrier to define, use and discard context specific shortcuts.
+
 ## Installation
 
 Not on melpa yet. For now:
@@ -15,12 +21,15 @@ Bind it to a convenient key, for eg:
 ```
 (global-set-key "\C-xl" 'lam/control)
 ```
+Now, you can use `C-x l` as a single keybinding to do everything - enable lam for current buffer, bring up the lam panel, close it, etc.
 
 ## Usuage
 
 ### Basic
 
 Just type abbrevations into the `*lam*` buffer for them to become instantly available. Abbrevs are reloaded when you switch window focus - no saving or extra commands required!
+
+Abbrev definitions look like the following:
 ```
 ("eia" "Emacs is Awesome!")
 ("lam" "Local Abbrev Manager")
@@ -32,7 +41,7 @@ You can comment out lines using ";". Since the `*lam*` buffer is reloaded on win
 
 But, wait. Abbrevs can do a lot more. Did you know that we can call arbitrary elisp from abbrevs?
 
-If there is a third arg, it is wrapped into a lambda and called after expansion.
+If there is a third arg, it is wrapped into a lambda and called after expansion. The second arg is expanded first - you may not want to use it in this case.
 ```
 ("sayhi" "" (message "Hi"))
 ```
@@ -87,3 +96,6 @@ To simplify this use case, we provide a convenience macro `lam/cb` that does jus
 5. Save/load lam buffers.
 6. Use a single lam buffer for an entire project
 
+## LICENSE
+
+MIT
