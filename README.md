@@ -26,7 +26,7 @@ Just type abbrevations into the `*lam*` buffer for them to become instantly avai
 ("lam" "Local Abbrev Manager")
 ```
 
-Since, the buffer is just Elisp, commenting out lines works as expected. Since the `*lam*` buffer is reloaded with no extra effort from your side: changing abbrev values, adding, removing, commenting, uncommenting all work seamlessly.
+You can comment out lines using ";". Since the `*lam*` buffer is reloaded on window focus change with no extra effort from your side: changing abbrev values, adding, removing, commenting, uncommenting all work seamlessly.
 
 ### Executing Elisp
 

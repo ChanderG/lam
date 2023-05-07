@@ -25,7 +25,10 @@
 (defun lam/reload (lambuffer sourcebuffer basetable arg)
   (with-current-buffer lambuffer
     (let* ((buf (buffer-substring-no-properties (point-min) (point-max)))
-	   (at (read (concat "(" buf ")"))))
+           (buflines (split-string buf "\n"))
+           (activelines (-remove (lambda (x) (s-starts-with? ";" x)) buflines))
+           (contents (s-join "\n" activelines))
+	   (at (read (concat "(" contents ")"))))
       (with-current-buffer sourcebuffer
 	(set-local-abbrevs at basetable)))))
 
