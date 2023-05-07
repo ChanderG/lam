@@ -36,6 +36,7 @@
   (interactive)
   (message "Setting up lam...")
   (abbrev-mode)
+  (setq save-abbrevs nil)
   (let* ((lambuffer (get-buffer-create "*lam*"))
         (sourcebuffer (current-buffer))
 	(basetable local-abbrev-table)

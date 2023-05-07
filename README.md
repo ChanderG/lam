@@ -6,6 +6,11 @@ Buffer local `abbrev`s at the speed of light!
 
 The aim is to lower the barrier to define, use and discard context specific shortcuts.
 
+## Why?
+
+1. Current method to define abbrevs involves some number of keystrokes under the `C-x a` prefix that is not easy to remember. We want to reduce the friction in using `abbrev`s as much as possible.
+2. Out of the box, you can only define global (for all buffers) or mode specific (for all buffers of this major mode). There is no way to create an `abbrev` for a single buffer with the confidence that it will not disturb any other buffers.
+
 ## Installation
 
 Not on melpa yet. For now:
